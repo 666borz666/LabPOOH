@@ -6,6 +6,8 @@ import funciones
 
 def menu():
     try:
+        print("***********************************************")
+        print("Menu principal")
         print("1. Registrar arma")
         print("2. Registrar armadura")
         print("3. Desgastar arma")
@@ -13,6 +15,7 @@ def menu():
         print("5. Mostrar herramientas")
         print("6. Mostrar armas de metal")
         print("7. Salir")
+        print("***********************************************")
         opcion = int(input("Ingrese la opcion: "))
         if opcion == 1:
             funciones.registrarArma()
@@ -37,3 +40,5 @@ def menu():
     except ValueError:
         print("Ingrese una entero como entrada para seleccionar.")
         return menu()
+#Programa principal
+menu()

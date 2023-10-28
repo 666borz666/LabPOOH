@@ -4,20 +4,18 @@
 #Version: 3.12.0
 import pickle
 
-def graba(archivo, objeto):
+def graba(archivo, objetos):
     try:
-        f = open(archivo, "wb")
-        pickle.dump(objeto, f)
-        f.close()
-    except:
-        print("Error al grabar el archivo")
-    return
+        with open(archivo, "wb") as f:
+            pickle.dump(objetos, f)
+    except Exception as e:
+        print("Error al grabar el archivo:", e)
 
 def lee(archivo):
     try:
-        f = open(archivo, "rb")
-        objeto = pickle.load(f)
-        f.close()
-    except:
-        objeto = None
-    return objeto
+        with open(archivo, "rb") as f:
+            objetos = pickle.load(f)
+        return objetos
+    except Exception as e:
+        print("Error al leer el archivo:", e)
+        return None
