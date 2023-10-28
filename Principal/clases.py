@@ -29,7 +29,6 @@ class herramientas:
 
     def generarMetales(self):
         self.metales = random.choice(["Hierro", "Oro", "Diamante"])
-        print("El metal de la herramienta es: " + self.metales)
         return self.metales
 
     def generarColor(self):
