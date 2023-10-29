@@ -18,19 +18,15 @@ class herramientas:
         self.durabilidad = 0
         self.metales = ""
         self.color = []
-
     def generarID(self):
         self.ID = random.randint(1, 100000)
         return self.ID
-
     def generarDurabilidad(self):
         self.durabilidad = random.randint(1, 100)
         return self.durabilidad
-
     def generarMetales(self):
         self.metales = random.choice(["Hierro", "Oro", "Diamante"])
         return self.metales
-
     def generarColor(self):
         colorSeleccionado = seleccionarColor()
         colores = ["azul", "amarillo", "gris"]
@@ -41,11 +37,9 @@ class armas(herramientas):
         super().__init__()
         self.danno = 0
         self.velocidadAtaque = 0.0
-
     def generarDanno(self):
         self.danno = random.choice([7, 8, 9])
         return self.danno
-
     def generarVelocidadAtaque(self):
         self.velocidadAtaque = random.choice([0.1, 0.2, 0.3])
         return self.velocidadAtaque
@@ -53,7 +47,6 @@ class armaduras(herramientas):
     def __init__(self):
         super().__init__()
         self.defensa = 0
-
     def generarDefensa(self):
         self.defensa = random.choice([4, 5, 6])
         return self.defensa

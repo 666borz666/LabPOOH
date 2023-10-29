@@ -18,7 +18,6 @@ def registrarArma():
     equipos.append(arma)
     archivos.graba("armas.txt", equipos)
     return
-
 def registrarArmadura():
     armadura = clases.armaduras()
     armadura.generarID()
@@ -29,38 +28,44 @@ def registrarArmadura():
     equipos.append(armadura)
     archivos.graba("armaduras.txt", armadura)
     return
-
 def desgastarArma():
-    archivos.lee("armas.txt")
-    if archivos.lee("armas.txt") == None:
+    armas = archivos.lee("armas.txt")
+    if armas is None:
         print("No hay armas registradas.")
         return
-    else:
-        armas = archivos.lee("armas.txt")
-        for arma in armas:
-            if arma.durabilidad == 0:
-                arma = None
-                print("El arma se ha eliminado.")
-                return
+    print("Armas registradas:")
+    for i, arma in enumerate(armas):
+        print(f"{i + 1}. ID: {arma.ID}, Durabilidad: {arma.durabilidad}")
+    try:
+        opcion = int(input("Ingrese el número de arma que desea desgastar (o 0 para cancelar): "))
+        if opcion == 0:
+            return
+        elif opcion > 0 and opcion <= len(armas):
+            arma = armas[opcion - 1]
+            if arma.durabilidad <= 0:
+                print(f"El arma {arma.ID} ya está desgastada y se eliminará.")
+                armas.pop(opcion - 1)  # Eliminar el arma de la lista
             else:
-                try:
-                    print("¿Desgastar arma?")
-                    print("1. Si" + "\n" + "2. No")
-                    opcion = int(input("Ingrese la opcion: "))
-                    if opcion == 1:
-                        arma.durabilidad -= 25
-                        print("La durabilidad del arma es: " + str(arma.durabilidad))
-                        return
-                    elif opcion == 2:
-                        return
+                print("¿Desgastar arma?")
+                print("1. Si")
+                print("2. No")
+                opcion = int(input("Ingrese la opción: "))
+                if opcion == 1:
+                    arma.durabilidad -= 25
+                    if arma.durabilidad <= 0:
+                        print(f"El arma {arma.ID} se ha desgastado por completo y se eliminará.")
+                        armas.pop(opcion - 1)  # Eliminar el arma de la lista
                     else:
-                        print("Ingrese una opcion valida.")
-                        return desgastarArma()
-                except ValueError:
-                    print("Ingrese un entero como entrada para seleccionar.")
-                    return desgastarArma()
-    return
-
+                        print(f"La durabilidad del arma {arma.ID} es ahora: {arma.durabilidad}")
+                elif opcion == 2:
+                    print("No se desgastó el arma.")
+                else:
+                    print("Ingrese una opción válida.")
+        else:
+            print("Número de arma no válido.")
+    except ValueError:
+        print("Ingrese un número válido.")
+    archivos.graba("armas.txt", armas)
 def eliminarEquipo():
     try:
         print("¿Qué equipo desea eliminar?")
@@ -81,7 +86,6 @@ def eliminarEquipo():
     except ValueError:
         print("Ingrese un entero como entrada para seleccionar.")
         return eliminarEquipo()
-
 def mostrarHerramientas():
     try:
         print("¿Que herramientas desea mostrar?")
@@ -150,7 +154,6 @@ def mostrarHerramientas():
     except ValueError:
         print("Ingrese un entero como entrada para seleccionar.")
         return mostrarHerramientas()
-
 def mostrarArmasMetal():
     try:
         armas = archivos.lee("armas.txt")
